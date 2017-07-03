@@ -5,7 +5,7 @@
  * @param params Params object.
  * @return Returns string with replaced params.
  */
-export default (template: string, params: Params): string => {
+export default (template: string, params: Params): Param => {
   return template.replace(/:[a-z|A-Z]+/g, match => {
     const matchedParam = match.substr(1);
     const value = params[matchedParam];
@@ -21,5 +21,7 @@ export default (template: string, params: Params): string => {
 };
 
 export type Params = {
-  [key: string]: string | number;
+  [key: string]: Param;
 };
+
+export type Param = string | number;
