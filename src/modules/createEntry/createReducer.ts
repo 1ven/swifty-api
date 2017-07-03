@@ -3,6 +3,14 @@ import { Stream, mergeArray, just } from "most";
 import { Subject } from "most-subject";
 import { Request, Success, Failure } from "./createActions";
 
+/**
+ * Creates reducer for the api entry object.
+ *
+ * @param request$ Request action.
+ * @param success$ Success action.
+ * @param failure$ Failure action.
+ * @return Returns api entry reducer.
+ */
 export default (
   request$: Action<Request>,
   success$: Action<Success>,

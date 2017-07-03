@@ -3,6 +3,14 @@ import axios from "axios";
 
 const now = () => Date.now();
 
+/**
+ * Performs ajax request.
+ *
+ * @param url Request url.
+ * @param method Request method.
+ * @param body Request body.
+ * @return Returns api response object.
+ */
 export default (
   url: string,
   method: string,

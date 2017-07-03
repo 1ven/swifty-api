@@ -6,6 +6,13 @@ import replaceParams from "./replaceParams";
 import resolveUrl from "./resolveUrl";
 import { Config, SpecEntry, ApiEntry } from "../../types";
 
+/**
+ * Creates ApiEntry object.
+ *
+ * @param entry Api SpecEntry object.
+ * @param config Library config.
+ * @return Returns new ApiEntry object.
+ */
 export default (entry: SpecEntry, config: Config): ApiEntry => {
   const [request$, success$, failure$] = createActions();
 
@@ -14,8 +21,8 @@ export default (entry: SpecEntry, config: Config): ApiEntry => {
     const withParams = replaceParams(url, params);
 
     callApi(withParams, entry.method, body)
-      .then((res: Success) => success$.next(res))
-      .catch((failure: Failure) => failure$.next(failure));
+      .then((s: Success) => success$.next(s))
+      .catch((f: Failure) => failure$.next(f));
   });
 
   const reducer$ = createReducer(request$, success$, failure$);
