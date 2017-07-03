@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 
 const env = process.env.NODE_ENV;
 
@@ -30,7 +31,8 @@ const config = {
     })
   ],
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    modules: [path.resolve(process.cwd(), "./src"), "node_modules"]
   },
 };
 

@@ -9,18 +9,6 @@
     "dist",
     "lib"
   ],
-  "devDependencies": {
-    "cross-env": "^5.0.1",
-    "husky": "^0.13.4",
-    "jest": "^20.0.4",
-    "lint-staged": "^4.0.0",
-    "prettier": "^1.4.4",
-    "rimraf": "^2.6.1",
-    "ts-jest": "^20.0.6",
-    "ts-loader": "^2.1.0",
-    "typescript": "^2.3.4",
-    "webpack": "^3.0.0"
-  },
   "scripts": {
     "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min",
     "build:commonjs": "tsc --project . --outDir ./lib",
@@ -49,5 +37,23 @@
       "tsx",
       "js"
     ]
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "ramda": "^0.24.1"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "husky": "^0.13.4",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.0",
+    "most": "^1.5.0",
+    "prettier": "^1.4.4",
+    "rimraf": "^2.6.1",
+    "swifty": "^0.0.11",
+    "ts-jest": "^20.0.6",
+    "ts-loader": "^2.1.0",
+    "typescript": "^2.3.4",
+    "webpack": "^3.0.0"
   }
 }
