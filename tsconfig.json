@@ -4,8 +4,7 @@
     "declaration": true,
     "module": "commonjs",
     "target": "es5",
-    "inlineSourceMap": true,
-    "inlineSources": true
+    "sourceMap": true
   },
   "files": [
     "./lib.es6.d.ts",
