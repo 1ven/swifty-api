@@ -1,5 +1,5 @@
 import { Subject } from "most-subject";
-import { times } from "ramda";
+import { reduce } from "ramda";
 import { createAction, Action } from "swifty";
 
 /**
@@ -7,8 +7,16 @@ import { createAction, Action } from "swifty";
  *
  * @return Returns list with three actions.
  */
-export default (): [Action<Request>, Action<Success>, Action<Failure>] =>
-  times(() => createAction(), 3);
+
+export default (): {
+  request$: Action<Request>;
+  success$: Action<Success>;
+  failure$: Action<Failure>;
+} => ({
+  request$: createAction(),
+  success$: createAction(),
+  failure$: createAction()
+});
 
 export type Request = {
   params?: { [key: string]: string };

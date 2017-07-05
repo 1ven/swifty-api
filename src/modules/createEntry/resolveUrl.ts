@@ -1,8 +1,8 @@
-import { equals, when, head, last, tail, init } from "ramda";
+import { compose, equals, when, head, last, tail, init } from "ramda";
 
 const isSlash = equals("/");
-const noTrailingSlash = when(isSlash(last), init);
-const noLeadingSlash = when(isSlash(head), tail);
+const noTrailingSlash = when(compose(isSlash, last), init);
+const noLeadingSlash = when(compose(isSlash, head), tail);
 
 /**
  * Connects two strings and puts `/` symbol between them.

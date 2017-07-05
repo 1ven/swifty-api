@@ -1,7 +1,8 @@
+import { Stream } from "most";
 import { compose, mapObjIndexed, ifElse, curry, prop } from "ramda";
 import { combineReducers, Reducer } from "swifty";
 import createEntry from "../createEntry";
-import { Api, Spec, SpecEntry, isSpecEntry } from "../../types";
+import { Api, Spec, SpecEntry, Config, isSpecEntry } from "../../types";
 import mapSpec from "./mapSpec";
 
 /**
@@ -10,7 +11,8 @@ import mapSpec from "./mapSpec";
  * @param spec Api spec object.
  * @return Returns new Api object.
  */
-const createApi = mapSpec(createEntry);
+const createApi = (spec: Spec, config: Config) =>
+  mapSpec((entry: SpecEntry) => createEntry(entry, config), spec);
 
 /**
  * Creates root Api reducer with the same structure as given Api object.

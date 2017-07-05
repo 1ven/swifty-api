@@ -14,7 +14,7 @@ import { Config, SpecEntry, ApiEntry } from "../../types";
  * @return Returns new ApiEntry object.
  */
 export default (entry: SpecEntry, config: Config): ApiEntry => {
-  const [request$, success$, failure$] = createActions();
+  const { request$, success$, failure$ } = createActions();
 
   request$.observe(({ body, params }: Request) => {
     const url = resolveUrl(config.root, entry.url);
