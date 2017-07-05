@@ -1,7 +1,7 @@
 import { Action, Reducer } from "swifty";
 import { Stream, mergeArray, just } from "most";
 import { Subject } from "most-subject";
-import { Request, Success, Failure } from "./createActions";
+import { State, Request, Success, Failure } from "../../types";
 
 /**
  * Creates reducer for the api entry object.
@@ -11,24 +11,24 @@ import { Request, Success, Failure } from "./createActions";
  * @param failure$ Failure action.
  * @return Returns api entry reducer.
  */
-export default (
+export default <R>(
   request$: Action<Request>,
-  success$: Action<Success>,
+  success$: Action<Success<R>>,
   failure$: Action<Failure>
-): Reducer<State> =>
+): Reducer<State<R>> =>
   mergeArray([
-    request$.map((payload: Request) => (state: State) => ({
+    request$.map((payload: Request) => (state: State<R>) => ({
       ...state,
       isFetching: true
     })),
-    success$.map((payload: Success) => (state: State) => ({
+    success$.map((payload: Success<R>) => (state: State<R>) => ({
       ...state,
       isFetching: false,
       error: undefined,
       lastUpdated: payload.receivedAt,
       data: payload.data
     })),
-    failure$.map((payload: Failure) => (state: State) => ({
+    failure$.map((payload: Failure) => (state: State<R>) => ({
       ...state,
       error: payload.message,
       isFetching: false,
@@ -38,10 +38,3 @@ export default (
       isFetching: false
     }))
   ]);
-
-export type State = {
-  isFetching: boolean;
-  error?: string;
-  lastUpdated?: number;
-  data?: any;
-};

@@ -12,7 +12,7 @@ import mapSpec from "./mapSpec";
  * @return Returns new Api object.
  */
 const createApi = (spec: Spec, config: Config) =>
-  mapSpec((entry: SpecEntry) => createEntry(entry, config), spec);
+  mapSpec((entry: SpecEntry) => createEntry<any>(entry, config), spec);
 
 /**
  * Creates root Api reducer with the same structure as given Api object.

@@ -1,10 +1,17 @@
 import { just, mergeArray } from "most";
-import createActions, { Request, Success, Failure } from "./createActions";
+import createActions from "./createActions";
 import callApi from "./callApi";
 import createReducer from "./createReducer";
 import replaceParams from "./replaceParams";
 import resolveUrl from "./resolveUrl";
-import { Config, SpecEntry, ApiEntry } from "../../types";
+import {
+  Config,
+  SpecEntry,
+  ApiEntry,
+  Request,
+  Success,
+  Failure
+} from "../../types";
 
 /**
  * Creates ApiEntry object.
@@ -13,19 +20,19 @@ import { Config, SpecEntry, ApiEntry } from "../../types";
  * @param config Library config.
  * @return Returns new ApiEntry object.
  */
-export default (entry: SpecEntry, config: Config): ApiEntry => {
-  const { request$, success$, failure$ } = createActions();
+export default <R>(entry: SpecEntry, config: Config): ApiEntry<R> => {
+  const { request$, success$, failure$ } = createActions<R>();
 
   request$.observe(({ body, params }: Request) => {
     const url = resolveUrl(config.root, entry.url);
     const withParams = replaceParams(url, params);
 
     callApi(withParams, entry.method, body)
-      .then((s: Success) => success$.next(s))
+      .then((s: Success<R>) => success$.next(s))
       .catch((f: Failure) => failure$.next(f));
   });
 
-  const reducer$ = createReducer(request$, success$, failure$);
+  const reducer$ = createReducer<R>(request$, success$, failure$);
 
   return {
     request$,

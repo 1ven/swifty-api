@@ -1,6 +1,4 @@
 import { Reducer, Action } from "swifty";
-import { State } from "./modules/createEntry/createReducer";
-import { Request, Success, Failure } from "./modules/createEntry/createActions";
 
 /**
  * Library settings config.
@@ -13,17 +11,17 @@ export type Config = {
  * Api instance object. Contains api entries inside. Could have deep structure.
  */
 export type Api = {
-  [key: string]: ApiEntry | Api;
+  [key: string]: ApiEntry<any> | Api;
 };
 
 /**
  * ApiEntry instance object.
  */
-export type ApiEntry = {
+export type ApiEntry<R> = {
   request$: Action<Request>;
-  success$: Action<Success>;
+  success$: Action<Success<R>>;
   failure$: Action<Failure>;
-  reducer$: Reducer<State>;
+  reducer$: Reducer<State<R>>;
 };
 
 /**
@@ -41,3 +39,36 @@ export type SpecEntry = {
   method: string;
 };
 export const isSpecEntry = (a): a is SpecEntry => a.url && a.method;
+
+/**
+ * Api entry state.
+ */
+export type State<R> = {
+  isFetching: boolean;
+  error?: string;
+  lastUpdated?: number;
+  data?: R;
+};
+
+/**
+ * Request action payload.
+ */
+export type Request = {
+  params?: { [key: string]: string };
+  body?: any;
+};
+
+/**
+ * Success action payload.
+ */
+export type Success<R> = {
+  receivedAt: number;
+  data?: R;
+};
+
+/**
+ * Failure action payload.
+ */
+export type Failure = {
+  message?: string;
+};
