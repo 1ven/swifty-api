@@ -1,4 +1,5 @@
 import { just, mergeArray } from "most";
+import { curry } from "icecrown";
 import createActions from "./createActions";
 import callApi from "./callApi";
 import createReducer from "./createReducer";
@@ -20,7 +21,7 @@ import {
  * @param config Library config.
  * @return Returns new ApiEntry object.
  */
-export default <R>(entry: SpecEntry, config: Config): ApiEntry<R> => {
+export default curry(<R>(config: Config, entry: SpecEntry): ApiEntry<R> => {
   const { request$, success$, failure$ } = createActions<R>();
 
   request$.observe(({ body, params }: Request) => {
@@ -40,4 +41,4 @@ export default <R>(entry: SpecEntry, config: Config): ApiEntry<R> => {
     failure$,
     reducer$
   };
-};
+});
