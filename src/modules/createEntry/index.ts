@@ -1,5 +1,5 @@
 import { just, mergeArray } from "most";
-import { curry } from "icecrown";
+import { curry } from "ramda";
 import createActions from "./createActions";
 import callApi from "./callApi";
 import createReducer from "./createReducer";
